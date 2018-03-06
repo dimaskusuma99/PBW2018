@@ -20,6 +20,8 @@ $headers .= 'Cc: admin@infotech-its.000webhostapp.com' . "\r\n"; //untuk cc lebi
 @mail($to,$subject,$message,$headers);
 if(@mail)
 {
-echo "Email sent successfully !!";	
+echo "<script type='text/javascript'>alert('submitted successfully!')</script>";
+} else {
+    echo "<script type='text/javascript'>alert('failed!')</script>";
 }
 ?>
