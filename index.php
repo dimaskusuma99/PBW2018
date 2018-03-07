@@ -22,7 +22,11 @@
   <link href="lib/animate/animate.min.css" rel="stylesheet">
 
   <!-- Main Stylesheet File -->
-  <link href="css/style.css" rel="stylesheet">
+  <link href="css/<?php
+    $color = array("merah","kuning","hijau","biru","ungu");
+    $a = array_rand($color,1);
+    echo $color[$a];
+?>.css" rel="stylesheet">
 
   <!-- =======================================================
     Theme Name: Regna
@@ -33,7 +37,6 @@
 </head>
 
 <body>
-
   <!--==========================
   Header
   ============================-->
@@ -122,13 +125,17 @@
       <div class="container wow fadeInUo">
         <div class="section-header">
           <h3 class="section-title">Mengapa Teknologi Informasi?</h3>
+            <br>
             <div class="row">
             <div class="col-md-2 col-sm-4"></div>
             <div class="col-md-8 col-sm-4 wow fadeInUp">
             <ol>
                 <li>Saat ini banyak terdapat hacker di dunia siber, oleh karena itu diperlukan ahli keamanan siber dan aplikasi untuk mengurangi penipuan(fraud).</li>
+                <br>
                 <li>Program Studi Teknologi Informasi dapat mencetak lulusan yang mempunyai keahlian di bidang layanan awan, yang berkontribusi dalam meningkatkan kuantitas dan kualitas SDM, sehingga dapat meningkatkan efisiensi operasional organisasi.</li>
+                <br>
                 <li>Memiliki kemampuan untuk menghasilkan SDM yang ahli dalam bidang integrasi sistem sebagai solusi untuk mendukung penanganan aplikasi-aplikasi di instansi pemerintahan (E-Gov).</li>
+                <br>
                 <li>Memfasilitasi otomatisasi proses bisnis di organisasi untuk menghadapi perkembangan teknologi internet yang pesat dalam rangka mendukung pengembangan Teknologi Smart City.</li>
             </ol>
   		    </div>
@@ -185,7 +192,7 @@
             <p class="cta-text"> Mari simak penjelasan di bawah ini atau bisa menghubungi kami.</p>
           </div>
           <div class="col-lg-3 cta-btn-container text-center">
-            <a class="cta-btn align-middle" href="#contact">Call us</a>
+            <a class="cta-btn align-middle" href="#contact">Contact us</a>
           </div>
         </div>
 
