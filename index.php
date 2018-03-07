@@ -71,7 +71,7 @@
   <!--==========================
     Hero Section
   ============================-->
-  <section id="hero">
+  <section id="hero" >
     <div class="hero-container">
       <h1>Selamat Datang di Teknologi Informasi</h1>
       <h2>Fakultas Teknologi Informasi dan Komunikasi, ITS, Surabaya</h2>
