@@ -21,7 +21,10 @@ $headers .= 'Cc: admin@infotech-its.000webhostapp.com' . "\r\n"; //untuk cc lebi
 if(@mail)
 {
 echo "<script type='text/javascript'>alert('submitted successfully!')</script>";
+echo "<a href=\"..\">kembali</a>";
 } else {
     echo "<script type='text/javascript'>alert('failed!')</script>";
 }
+
+
 ?>
