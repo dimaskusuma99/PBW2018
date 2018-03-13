@@ -447,14 +447,40 @@
                   <textarea class="form-control" name="message" rows="5" data-rule="required" data-msg="Please write something for us" placeholder="Message" required="required"></textarea>
                   <div class="validation"></div>
                 </div>
-                <div class="text-center"><button type="submit">Send Message</button></div>
+                <div class="text-center"><button type="submit" name="Submit" >Send Message</button></div>
               </form>
             </div>
           </div>
-          </div>
+          </div>    
       </div>
     </section><!-- #contact -->
-
+      
+      <div class="container">
+            <div class="row">
+                <div class="col-md-8">
+                  <div class="page-header">
+                    <h1> Pesan Anda </h1>
+                  </div> 
+                   <div class="comments-list">
+                       <div class="media">
+                            <a class="media-left" href="#">
+                            </a>
+                            <div class="media-body">
+                            <?php 
+                             
+                include 'contactform/contact.php';
+                $result = mysqli_query($mysqli, "SELECT * from kontak");
+                while($user_data = mysqli_fetch_array($result)) {         
+                echo "<h6>".$user_data['name']."<p><b>".$user_data['email']."</b></p></h6>";
+                echo "<p><b><i>".$user_data['subject']."</i></b> <br><i>".$user_data['message']."</i></p>";  
+        }
+    ?>  
+                            </div>
+                          </div>
+                    </div>
+                </div>
+          </div>
+      </div>
   </main>
 
   <!--==========================

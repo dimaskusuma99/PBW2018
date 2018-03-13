@@ -1,30 +1,25 @@
 <?php
-$name=$_POST['name'];
-$email=$_POST['email'];
-$subject=$_POST['subject'];
-$message=$_POST['message'];
+$databaseHost = 'localhost';
+$databaseName = 'contact';
+$databaseUsername = 'root';
+$databasePassword = '';
+ 
+$mysqli = mysqli_connect($databaseHost, $databaseUsername, $databasePassword, $databaseName); 
 
-$to="dimaskusuma99@gmail.com";
+	// Check If form submitted, insert form data into users table.
+	if(isset($_POST['Submit'])) {
+		$name = $_POST['name'];
+		$email = $_POST['email'];
+		$subject = $_POST['subject'];
+        $message = $_POST['message'];
+		
+		// include database connection file
 
-$message="<h2>via Form Kontak Website</h2>
-				<h4>Nama</h4><p>'$name'</p>
-				<h4>Email</h4><p>'$email'</p>
-				<h4>Pesan</h4><p>'$message'</p>";
-
-$headers = "MIME-Version: 1.0" . "\r\n";
-$headers .= "Content-type:text/html;charset=iso-8859-1" . "\r\n";
-
-// More headers
-$headers .= 'From: infotech-its.000webhostapp.com'."\r\n" . 'Reply-To: '.$name.' <'.$email.'>'."\r\n";
-$headers .= 'Cc: admin@infotech-its.000webhostapp.com' . "\r\n"; //untuk cc lebih dari satu tinggal kasih koma
-@mail($to,$subject,$message,$headers);
-if(@mail)
-{
-echo "<script type='text/javascript'>alert('submitted successfully!')</script>";
-echo "<a href=\"..\">kembali</a>";
-} else {
-    echo "<script type='text/javascript'>alert('failed!')</script>";
-}
-
-
-?>
+				
+		// Insert user data into table
+		$result = mysqli_query($mysqli, "INSERT INTO kontak(name,email,subject,message) VALUES('$name','$email','$subject','$message')");
+		
+		// Show message when user added
+		echo "User added successfully. <a href=\"..\">kembali</a>";
+	}
+	?>

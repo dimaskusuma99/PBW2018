@@ -1018,6 +1018,14 @@ body.mobile-nav-active #mobile-nav-toggle {
   background: #51d8ad;
 }
 
+.user_name{
+    font-size:14px;
+    font-weight: bold;
+}
+.comments-list .media{
+    border-bottom: 1px dotted #ccc;
+}
+
 /*--------------------------------------------------------------
 # Footer
 --------------------------------------------------------------*/
