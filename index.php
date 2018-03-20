@@ -1,524 +1,315 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>Teknologi Informasi</title>
-  <meta content="width=device-width, initial-scale=1.0" name="viewport">
-  <meta content="" name="keywords">
-  <meta content="" name="description">
+<?php
+/**
+ * CodeIgniter
+ *
+ * An open source application development framework for PHP
+ *
+ * This content is released under the MIT License (MIT)
+ *
+ * Copyright (c) 2014 - 2018, British Columbia Institute of Technology
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ *
+ * @package	CodeIgniter
+ * @author	EllisLab Dev Team
+ * @copyright	Copyright (c) 2008 - 2014, EllisLab, Inc. (https://ellislab.com/)
+ * @copyright	Copyright (c) 2014 - 2018, British Columbia Institute of Technology (http://bcit.ca/)
+ * @license	http://opensource.org/licenses/MIT	MIT License
+ * @link	https://codeigniter.com
+ * @since	Version 1.0.0
+ * @filesource
+ */
 
-  <!-- Favicons -->
-  <link href="img/favicon.png" rel="icon">
-  <link href="img/apple-touch-icon.png" rel="apple-touch-icon">
+/*
+ *---------------------------------------------------------------
+ * APPLICATION ENVIRONMENT
+ *---------------------------------------------------------------
+ *
+ * You can load different configurations depending on your
+ * current environment. Setting the environment also influences
+ * things like logging and error reporting.
+ *
+ * This can be set to anything, but default usage is:
+ *
+ *     development
+ *     testing
+ *     production
+ *
+ * NOTE: If you change these, also change the error_reporting() code below
+ */
+	define('ENVIRONMENT', isset($_SERVER['CI_ENV']) ? $_SERVER['CI_ENV'] : 'development');
 
-  <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,700,700i|Poppins:300,400,500,700" rel="stylesheet">
+/*
+ *---------------------------------------------------------------
+ * ERROR REPORTING
+ *---------------------------------------------------------------
+ *
+ * Different environments will require different levels of error reporting.
+ * By default development will show errors but testing and live will hide them.
+ */
+switch (ENVIRONMENT)
+{
+	case 'development':
+		error_reporting(-1);
+		ini_set('display_errors', 1);
+	break;
 
-  <!-- Bootstrap CSS File -->
-  <link href="lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+	case 'testing':
+	case 'production':
+		ini_set('display_errors', 0);
+		if (version_compare(PHP_VERSION, '5.3', '>='))
+		{
+			error_reporting(E_ALL & ~E_NOTICE & ~E_DEPRECATED & ~E_STRICT & ~E_USER_NOTICE & ~E_USER_DEPRECATED);
+		}
+		else
+		{
+			error_reporting(E_ALL & ~E_NOTICE & ~E_STRICT & ~E_USER_NOTICE);
+		}
+	break;
 
-  <!-- Libraries CSS Files -->
-  <link href="lib/font-awesome/css/font-awesome.min.css" rel="stylesheet">
-  <link href="lib/animate/animate.min.css" rel="stylesheet">
+	default:
+		header('HTTP/1.1 503 Service Unavailable.', TRUE, 503);
+		echo 'The application environment is not set correctly.';
+		exit(1); // EXIT_ERROR
+}
 
-  <!-- Main Stylesheet File -->
-  <link href="css/<?php
-    $color = array("merah","kuning","hijau","biru","ungu");
-    $a = array_rand($color,1);
-    echo $color[$a];
-?>.css" rel="stylesheet">
+/*
+ *---------------------------------------------------------------
+ * SYSTEM DIRECTORY NAME
+ *---------------------------------------------------------------
+ *
+ * This variable must contain the name of your "system" directory.
+ * Set the path if it is not in the same directory as this file.
+ */
+	$system_path = 'system';
 
-  <!-- =======================================================
-    Theme Name: Regna
-    Theme URL: https://bootstrapmade.com/regna-bootstrap-onepage-template/
-    Author: BootstrapMade.com
-    License: https://bootstrapmade.com/license/
-  ======================================================= -->
-</head>
+/*
+ *---------------------------------------------------------------
+ * APPLICATION DIRECTORY NAME
+ *---------------------------------------------------------------
+ *
+ * If you want this front controller to use a different "application"
+ * directory than the default one you can set its name here. The directory
+ * can also be renamed or relocated anywhere on your server. If you do,
+ * use an absolute (full) server path.
+ * For more info please see the user guide:
+ *
+ * https://codeigniter.com/user_guide/general/managing_apps.html
+ *
+ * NO TRAILING SLASH!
+ */
+	$application_folder = 'application';
 
-<body>
-  <!--==========================
-  Header
-  ============================-->
-  <header id="header">
-    <div class="container">
-
-      <div id="logo" class="pull-left">
-        <a href="#hero"><img src="img/logo.png" alt="" title="" /></a>
-        <!-- Uncomment below if you prefer to use a text logo -->
-        <!--<h1><a href="#hero">Regna</a></h1>-->
-      </div>
-
-      <nav id="nav-menu-container">
-        <ul class="nav-menu">
-          <li class="menu-active"><a href="#hero">Home</a></li>
-          <li><a href="#about">About Us</a></li>
-          <li><a href="#services">Fasilitas</a></li>
-          <li class="menu-has-children"><a href="">More</a>
-                <ul>
-                  <li><a href="#lulusan">Profil Lulusan</a></li>
-                  <li><a href="#peluang">Peluang Kerja</a></li>
-                  <li><a href="#seleksi">Seleksi Masuk</a></li>
-                </ul>
-          </li>
-          <li><a href="#team">Testimoni</a></li>
-          <li><a href="#contact">Contact</a></li>
-        </ul>
-      </nav><!-- #nav-menu-container -->
-    </div>
-  </header><!-- #header -->
-
-  <!--==========================
-    Hero Section
-  ============================-->
-  <section id="hero" >
-    <div class="hero-container">
-      <h1>Selamat Datang di Teknologi Informasi</h1>
-      <h2>Fakultas Teknologi Informasi dan Komunikasi, ITS, Surabaya</h2>
-      <a href="#about" class="btn-get-started">Mulai</a>
-    </div>
-  </section><!-- #hero -->
-
-  <main id="main">
-
-    <!--==========================
-      About Us Section
-    ============================-->
-    <section id="about">
-      <div class="container">
-        <div class="row about-container">
-
-          <div class="col-lg-6 content order-lg-1 order-2">
-            <h2 class="title">Tentang Teknologi Informasi</h2>
-            <p>
-              Program Studi Teknologi Informasi  meluluskan lulusan yang menjadi sumber inovasi yang universal di bidang ilmu Teknologi Informasi dan dapat menghasilkan penelitian yang berguna untuk kepentingan bangsa dan kemanusiaan.
-            </p>
-
-            <div class="icon-box wow fadeInUp">
-              <div class="icon"><i class="fa fa-rocket"></i></div>
-              <h4 class="title"><a href="">Visi</a></h4>
-              <p class="description">Menjadi Program Studi Teknologi Informasi yang unggul dalam bidang keamanan siber dan Teknologi berbasis Internet (Internet of Things) untuk mendukung pembangunan Smart City secara berkelanjutan hingga tahun 2022</p>
-            </div>
-
-            <div class="icon-box wow fadeInUp" data-wow-delay="0.2s">
-              <div class="icon"><i class="fa fa-book"></i></div>
-              <h4 class="title"><a href="">Misi</a></h4>
-              <ol class="description">
-                    <li>Menyelenggarakan pendidikan dan pengajaran Teknologi Informasi dengan menggunakan kurikulum yang adaptif, berorientasi ke masa depan dan didukung SDM yang berkualitas serta fasilitas yang memadai.</li>
-                    <li>Melaksanakan penelitian yang bermutu di bidang Keamanan Siber dan Internet of Things untuk teknologi Smart City.</li>
-                    <li>Menjalin kemitraan dengan instansi dalam maupun luar negeri.</li>
-                    <li>Menyelenggarakan pengabdian kepada masyarakat berupa pelatihan, penyuluhan, penerapan hasil penelitian untuk pengembangan potensi dan pemberdayaan masyarakat daerah.</li>
-                </ol>
-            </div>
-
-          </div>
-
-          <div class="col-lg-6 background order-lg-2 order-1 wow fadeInRight"></div>
-        </div>
-
-      </div>
-    </section><!-- #about -->
-      
-      
-    <!-- Mengapa Teknologi Informasi-->
-    <section id="facts">
-      <div class="container wow fadeInUo">
-        <div class="section-header">
-          <h3 class="section-title">Mengapa Teknologi Informasi?</h3>
-            <br>
-            <div class="row">
-            <div class="col-md-2 col-sm-4"></div>
-            <div class="col-md-8 col-sm-4 wow fadeInUp">
-            <ol>
-                <li>Saat ini banyak terdapat hacker di dunia siber, oleh karena itu diperlukan ahli keamanan siber dan aplikasi untuk mengurangi penipuan(fraud).</li>
-                <br>
-                <li>Program Studi Teknologi Informasi dapat mencetak lulusan yang mempunyai keahlian di bidang layanan awan, yang berkontribusi dalam meningkatkan kuantitas dan kualitas SDM, sehingga dapat meningkatkan efisiensi operasional organisasi.</li>
-                <br>
-                <li>Memiliki kemampuan untuk menghasilkan SDM yang ahli dalam bidang integrasi sistem sebagai solusi untuk mendukung penanganan aplikasi-aplikasi di instansi pemerintahan (E-Gov).</li>
-                <br>
-                <li>Memfasilitasi otomatisasi proses bisnis di organisasi untuk menghadapi perkembangan teknologi internet yang pesat dalam rangka mendukung pengembangan Teknologi Smart City.</li>
-            </ol>
-  		    </div>
-            <div class="col-md-2 col-sm-4"></div>
-  			</div>
-          </div>
-        </div>
-      </section>
-
-    <!--==========================
-      Fasilitas
-    ============================-->
-    <section id="services">
-      <div class="container wow fadeIn">
-        <div class="section-header">
-          <h3 class="section-title">Fasilitas</h3>
-          <p class="section-description">Terdapat beberapa fasilitas yang dapat menunjang pembelajaran, diantaranya adalah</p>
-        </div>
-        <div class="row">
-          <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.2s">
-            <div class="box">
-              <div class="icon"><a href=""><i class="fa fa-desktop"></i></a></div>
-              <h4 class="title"><a href="">Laboratorium</a></h4>
-              <p class="description">Terdapat 2 laboratorium komputer (Lab Keamanan Siber dan Lab Teknologi Smart City). Seluruh Komputer telah dilengkapi oleh perangkat lunak yang dapat digunakan untuk mendukung kegiatan praktikum maupun kegiatan akademis lainnya.</p>
-            </div>
-          </div>
-          <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.4s">
-            <div class="box">
-              <div class="icon"><a href=""><i class="fa fa-book"></i></a></div>
-              <h4 class="title"><a href="">Ruang Baca</a></h4>
-              <p class="description">Memiliki berbagai macam koleksi mulai dari fiksi hingga materi perkuliahan, dari bahan cetak hingga koleksi digital seperti CD-ROM, CD, VCD dan DVD. Selain itu juga menyediakan publikasi serial harian dan bulanan seperti surat kabar dann majalah.</p>
-            </div>
-          </div>
-          <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.6s">
-            <div class="box">
-              <div class="icon"><a href=""><i class="fa fa-building"></i></a></div>
-              <h4 class="title"><a href="">Ruang Kelas</a></h4>
-              <p class="description">Setiap ruang kelas dilengkapi dengan pendingin ruangan dan LCD serta akses internet gratis yang dapat mendukung kegiatan akademis mahasiswa</p>
-            </div>
-          </div>
-        </div>
-
-      </div>
-    </section><!-- #services -->
-
-    <!--==========================
-    Call To Action Section
-    ============================-->
-    <section id="call-to-action">
-      <div class="container wow fadeIn">
-        <div class="row">
-          <div class="col-lg-9 text-center text-lg-left">
-            <h3 class="cta-title">Ada Pertanyaan?</h3>
-            <p class="cta-text"> Mari simak penjelasan di bawah ini atau bisa menghubungi kami.</p>
-          </div>
-          <div class="col-lg-3 cta-btn-container text-center">
-            <a class="cta-btn align-middle" href="#contact">Contact us</a>
-          </div>
-        </div>
-
-      </div>
-    </section><!-- #call-to-action -->
+/*
+ *---------------------------------------------------------------
+ * VIEW DIRECTORY NAME
+ *---------------------------------------------------------------
+ *
+ * If you want to move the view directory out of the application
+ * directory, set the path to it here. The directory can be renamed
+ * and relocated anywhere on your server. If blank, it will default
+ * to the standard location inside your application directory.
+ * If you do move this, use an absolute (full) server path.
+ *
+ * NO TRAILING SLASH!
+ */
+	$view_folder = '';
 
 
-    <!--Profil Lulusan-->
-    <section id="lulusan" style="padding-top: 10px">
-      <div class="container wow fadeInUp">
-        <div class="section-header">
-          <h3 class="section-title">Profil Lulusan</h3>
-          <p class="section-description">Mari simak apa saja profil lulusan teknologi informasi</p>
-    </div>
-    <div class="container">
-    <div class="row">
-        <div class="col-md-6 col-sm-6">
-            <div class="serviceBox">
-                <div class="service-icon">
-                    <i class="fa fa-lock"></i>
-                </div>
-                <h3 class="title">Spesialis keamanan Siber</h3>
-                <p>Cyber Security Specialist</p>
-            </div>
-        </div>
-         <div class="col-md-6 col-sm-6">
-            <div class="serviceBox">
-                <div class="service-icon">
-                    <i class="fa fa-globe"></i>
-                </div>
-                <h3 class="title">Spesialis Internet of Things</h3>
-                <p>IoT Specialist</p>
-            </div>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-md-3 col-sm-4"></div>
-        <div class="col-md-6 col-sm-4">
-            <div class="serviceBox">
-                <div class="service-icon">
-                    <i class="fa fa-android"></i>
-                </div>
-                <h3 class="title">Analisis Keamanan Aplikasi</h3>
-                <p>Application Security Analist</p>
-            </div>
-        </div>
-        <div class="col-md-3 col-sm-4"></div>
-    </div>
-    <div class="row" style="padding-bottom: 30px">
-        <div class="col-md-6 col-sm-6">
-            <div class="serviceBox">
-                <div class="service-icon">
-                    <i class="fa fa-cloud"></i>
-                </div>
-                <h3 class="title">Pengembang Layanan Awan</h3>
-                <p>Cloud Service Developer</p>
-            </div>
-        </div>
-        <div class="col-md-6 col-sm-6">
-            <div class="serviceBox">
-                <div class="service-icon">
-                    <i class="fa fa-rocket"></i>
-                </div>
-                <h3 class="title">Spesialis Integrasi Sistem</h3>
-                <p>System Integration Specialist</p>
-            </div>
-        </div>
-    </div>
-</div>
-</div>
-</section>
+/*
+ * --------------------------------------------------------------------
+ * DEFAULT CONTROLLER
+ * --------------------------------------------------------------------
+ *
+ * Normally you will set your default controller in the routes.php file.
+ * You can, however, force a custom routing by hard-coding a
+ * specific controller class/function here. For most applications, you
+ * WILL NOT set your routing here, but it's an option for those
+ * special instances where you might want to override the standard
+ * routing in a specific front controller that shares a common CI installation.
+ *
+ * IMPORTANT: If you set the routing here, NO OTHER controller will be
+ * callable. In essence, this preference limits your application to ONE
+ * specific controller. Leave the function name blank if you need
+ * to call functions dynamically via the URI.
+ *
+ * Un-comment the $routing array below to use this feature
+ */
+	// The directory name, relative to the "controllers" directory.  Leave blank
+	// if your controller is not in a sub-directory within the "controllers" one
+	// $routing['directory'] = '';
 
-<!--==========================
-      Peluang Kerja
-    ============================-->
-    <section id="peluang">
-      <div class="container wow fadeIn">
-        <div class="section-header">
-          <h3 class="section-title">Peluang Kerja</h3>
-          <p class="section-description">Berikut peluang kerja dari lulusan Teknologi Informasi</p>
-        </div>
-        <div class="row">
-          <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.2s">
-            <div class="box">
-                <div class="icon"><a href=""><i class="fa fa-cloud"></i></a></div>
-                <h4 class="title"><a href="">Komputasi Awan dan Komputasi Terdistribusi</a></h4>
-            </div>
-          </div>
-          <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.4s">
-            <div class="box">
-                <div class="icon"><a href=""><i class="fa fa-code"></i></a></div>
-                <h4 class="title"><a href="">Arsitektur Web dan Pengembangan Framework</a></h4>
-            </div>
-          </div>
-          <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.6s">
-            <div class="box">
-                <div class="icon"><a href=""><i class="fa fa-android"></i></a></div>
-                <h4 class="title"><a href="">Integrasi Perangkat Lunak dan Middleware</a></h4>
-            </div>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.2s">
-            <div class="box">
-                <div class="icon"><a href=""><i class="fa fa-desktop"></i></a></div>
-                <h4 class="title"><a href="">Rancangan Antarmuka Pengguna</a></h4>
-            </div>
-          </div>
-          <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.4s">
-            <div class="box">
-                <div class="icon"><a href=""><i class="fa fa-lock"></i></a></div>
-                <h4 class="title"><a href="">Keamanan Informasi dan Jaringan</a></h4>
-            </div>
-          </div>
-          <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.6s">
-            <div class="box">
-                <div class="icon"><a href=""><i class="fa fa-database"></i></a></div>
-                <h4 class="title"><a href="">Manajemen Penyimpanan Data</a></h4>
-            </div>
-          </div>
-        </div>
+	// The controller class file name.  Example:  mycontroller
+	// $routing['controller'] = '';
 
-      </div>
-    </section><!-- #services -->
+	// The controller function you wish to be called.
+	// $routing['function']	= '';
 
-      
-<!--==========================
-      Seleksi Masuk
-    ============================-->
-    <section id="seleksi">
-      <div class="container wow fadeInUo">
-        <div class="section-header">
-          <h3 class="section-title">Seleksi Masuk</h3>
-          <p class="section-description">Berikut seleksi masuk dari program studi Teknologi Informasi</p>
-        </div>
-        <div class="row">
-  		    <div class="col-lg-4 col-12 text-center">
-            <h2>SNMPTN</h2>
-            <a href="http://snmptn.ac.id/" class="btn-get-started">snmptn.ac.id</a>
-  				</div>
-            <div class="col-lg-4 col-12 text-center">
-            <h2>SBMPTN</h2>
-            <a href="http://sbmptn.ac.id/" class="btn-get-started">sbmptn.ac.id</a>
-  				</div>
-            <div class="col-lg-4 col-12 text-center">
-            <h2>PKM</h2>
-            <a href="https://smits.its.ac.id/" class="btn-get-started">smits its</a>
-  				</div>
-  			</div>
 
-      </div>
-    </section><!-- #facts -->
+/*
+ * -------------------------------------------------------------------
+ *  CUSTOM CONFIG VALUES
+ * -------------------------------------------------------------------
+ *
+ * The $assign_to_config array below will be passed dynamically to the
+ * config class when initialized. This allows you to set custom config
+ * items or override any default config values found in the config.php file.
+ * This can be handy as it permits you to share one application between
+ * multiple front controller files, with each file containing different
+ * config values.
+ *
+ * Un-comment the $assign_to_config array below to use this feature
+ */
+	// $assign_to_config['name_of_config_item'] = 'value of config item';
 
-            
-    <!--==========================
-      Team Section
-    ============================-->
-    <section id="team">
-      <div class="container wow fadeInUp">
-        <div class="section-header">
-          <h3 class="section-title">Apa Kata Mereka?</h3>
-          <p class="section-description">Mari simak pendapat tentang Teknologi Informasi</p>
-        </div>
-        <div class="row">
-          <div class="col-lg-3 col-md-6">
-            <div class="member">
-              <div class="pic"><img src="img/team-1.jpg" alt=""></div>
-              <h4>Wiranto</h4>
-              <span>Menko Polhukam</span>
-              <p>"Kegiatan siber nasional terutama pengamanan siber ini merupakan keharusan, keniscayaan..."</p>
-            </div>
-          </div>
 
-          <div class="col-lg-3 col-md-6">
-            <div class="member">
-              <div class="pic"><img src="img/team-2.jpg" alt=""></div>
-              <h4>John McCarthy</h4>
-              <span>Pakar Komputasi MIT</span>
-              <p>"Suatu hari nanti komputasi akan menjadi infrastruktur publik seperti listrik dan telepon"</p>
-            </div>
-          </div>
 
-          <div class="col-lg-3 col-md-6">
-            <div class="member">
-              <div class="pic"><img src="img/team-3.jpg" alt=""></div>
-              <h4>Rudiantara</h4>
-              <span>Menkominfo</span>
-              <p>"Smart City menciptakan perubahan sistem lebih efektif dan efisien dalam lembaga pemerintahan"</p>
-            </div>
-          </div>
+// --------------------------------------------------------------------
+// END OF USER CONFIGURABLE SETTINGS.  DO NOT EDIT BELOW THIS LINE
+// --------------------------------------------------------------------
 
-          <div class="col-lg-3 col-md-6">
-            <div class="member">
-              <div class="pic"><img src="img/team-4.jpg" alt=""></div>
-              <h4>Bill Gates</h4>
-              <span>Microsoft</span>
-              <p>"Jika kita tidak memecahkan masalah keamanan, maka orang-orang akan ragu"</p>
-            </div>
-          </div>
-        </div>
+/*
+ * ---------------------------------------------------------------
+ *  Resolve the system path for increased reliability
+ * ---------------------------------------------------------------
+ */
 
-      </div>
-    </section><!-- #team -->
+	// Set the current directory correctly for CLI requests
+	if (defined('STDIN'))
+	{
+		chdir(dirname(__FILE__));
+	}
 
-    <!--==========================
-      Contact Section
-    ============================-->
-    <section id="contact">
-      <div class="container wow fadeInUp">
-        <div class="section-header">
-          <h3 class="section-title">Contact</h3>
-          <p class="section-description">Silahkan tinggalkan pesan untuk kami</p>
-        </div>
-      </div>
+	if (($_temp = realpath($system_path)) !== FALSE)
+	{
+		$system_path = $_temp.DIRECTORY_SEPARATOR;
+	}
+	else
+	{
+		// Ensure there's a trailing slash
+		$system_path = strtr(
+			rtrim($system_path, '/\\'),
+			'/\\',
+			DIRECTORY_SEPARATOR.DIRECTORY_SEPARATOR
+		).DIRECTORY_SEPARATOR;
+	}
 
-      <div class="container wow fadeInUp">
-        <div class="row justify-content-center">
+	// Is the system path correct?
+	if ( ! is_dir($system_path))
+	{
+		header('HTTP/1.1 503 Service Unavailable.', TRUE, 503);
+		echo 'Your system folder path does not appear to be set correctly. Please open the following file and correct this: '.pathinfo(__FILE__, PATHINFO_BASENAME);
+		exit(3); // EXIT_CONFIG
+	}
 
-          <div class="col-lg-3 col-md-4">
+/*
+ * -------------------------------------------------------------------
+ *  Now that we know the path, set the main path constants
+ * -------------------------------------------------------------------
+ */
+	// The name of THIS file
+	define('SELF', pathinfo(__FILE__, PATHINFO_BASENAME));
 
-            <div class="info">
-              <div>
-                <i class="fa fa-map-marker"></i>
-                <p>Jl. ITS Raya<br>Sukolilo, Surabaya 60111</p>
-              </div>
+	// Path to the system directory
+	define('BASEPATH', $system_path);
 
-              <div>
-                <i class="fa fa-envelope"></i>
-                <p>teknologi.informasi@its.ac.id</p>
-              </div>
-                
-            </div>
+	// Path to the front controller (this file) directory
+	define('FCPATH', dirname(__FILE__).DIRECTORY_SEPARATOR);
 
-          </div>
+	// Name of the "system" directory
+	define('SYSDIR', basename(BASEPATH));
 
-           <div class="col-lg-5 col-md-8">
-            <div class="form">
-              <form action="contactform/contact.php" method="post" role="form" class="contactForm">
-                <div class="form-group">
-                  <input type="text" name="name" class="form-control" id="name" placeholder="Your Name" data-rule="minlen:4" data-msg="Please enter at least 4 chars" required="required"/>
-                  <div class="validation"></div>
-                </div>
-                <div class="form-group">
-                  <input type="email" class="form-control" name="email" id="email" placeholder="Your Email" data-rule="email" data-msg="Please enter a valid email" required="required"/>
-                  <div class="validation"></div>
-                </div>
-                <div class="form-group">
-                  <input type="text" class="form-control" name="subject" id="subject" placeholder="Subject" data-rule="minlen:4" data-msg="Please enter at least 8 chars of subject" required="required"/>
-                  <div class="validation"></div>
-                </div>
-                <div class="form-group">
-                  <textarea class="form-control" name="message" rows="5" data-rule="required" data-msg="Please write something for us" placeholder="Message" required="required"></textarea>
-                  <div class="validation"></div>
-                </div>
-                <div class="text-center"><button type="submit" name="Submit" >Send Message</button></div>
-              </form>
-            </div>
-          </div>
-          </div>    
-      </div>
-    </section><!-- #contact -->
-      
-      <div class="container">
-            <div class="row">
-                <div class="col-md-8">
-                  <div class="page-header">
-                    <h1> Pesan Anda </h1>
-                  </div> 
-                   <div class="comments-list">
-                       <div class="media">
-                            <a class="media-left" href="#">
-                            </a>
-                            <div class="media-body">
-                            <?php 
-                             
-                include 'contactform/contact.php';
-                $result = mysqli_query($mysqli, "SELECT * from kontak");
-                while($user_data = mysqli_fetch_array($result)) {         
-                echo "<h6>".$user_data['name']."<p><b>".$user_data['email']."</b></p></h6>";
-                echo "<p><b><i>".$user_data['subject']."</i></b> <br><i>".$user_data['message']."</i></p>";  
-        }
-    ?>  
-                            </div>
-                          </div>
-                    </div>
-                </div>
-          </div>
-      </div>
-  </main>
+	// The path to the "application" directory
+	if (is_dir($application_folder))
+	{
+		if (($_temp = realpath($application_folder)) !== FALSE)
+		{
+			$application_folder = $_temp;
+		}
+		else
+		{
+			$application_folder = strtr(
+				rtrim($application_folder, '/\\'),
+				'/\\',
+				DIRECTORY_SEPARATOR.DIRECTORY_SEPARATOR
+			);
+		}
+	}
+	elseif (is_dir(BASEPATH.$application_folder.DIRECTORY_SEPARATOR))
+	{
+		$application_folder = BASEPATH.strtr(
+			trim($application_folder, '/\\'),
+			'/\\',
+			DIRECTORY_SEPARATOR.DIRECTORY_SEPARATOR
+		);
+	}
+	else
+	{
+		header('HTTP/1.1 503 Service Unavailable.', TRUE, 503);
+		echo 'Your application folder path does not appear to be set correctly. Please open the following file and correct this: '.SELF;
+		exit(3); // EXIT_CONFIG
+	}
 
-  <!--==========================
-    Footer
-  ============================-->
-  <footer id="footer">
-    <div class="footer-top">
-      <div class="container">
+	define('APPPATH', $application_folder.DIRECTORY_SEPARATOR);
 
-      </div>
-    </div>
+	// The path to the "views" directory
+	if ( ! isset($view_folder[0]) && is_dir(APPPATH.'views'.DIRECTORY_SEPARATOR))
+	{
+		$view_folder = APPPATH.'views';
+	}
+	elseif (is_dir($view_folder))
+	{
+		if (($_temp = realpath($view_folder)) !== FALSE)
+		{
+			$view_folder = $_temp;
+		}
+		else
+		{
+			$view_folder = strtr(
+				rtrim($view_folder, '/\\'),
+				'/\\',
+				DIRECTORY_SEPARATOR.DIRECTORY_SEPARATOR
+			);
+		}
+	}
+	elseif (is_dir(APPPATH.$view_folder.DIRECTORY_SEPARATOR))
+	{
+		$view_folder = APPPATH.strtr(
+			trim($view_folder, '/\\'),
+			'/\\',
+			DIRECTORY_SEPARATOR.DIRECTORY_SEPARATOR
+		);
+	}
+	else
+	{
+		header('HTTP/1.1 503 Service Unavailable.', TRUE, 503);
+		echo 'Your view folder path does not appear to be set correctly. Please open the following file and correct this: '.SELF;
+		exit(3); // EXIT_CONFIG
+	}
 
-    <div class="container">
-      <div class="copyright">
-        &copy; Copyright <strong>Teknologi Informasi</strong>. All Rights Reserved
-      </div>
-    </div>
-  </footer><!-- #footer -->
+	define('VIEWPATH', $view_folder.DIRECTORY_SEPARATOR);
 
-  <a href="#" class="back-to-top"><i class="fa fa-chevron-up"></i></a>
-
-  <!-- JavaScript Libraries -->
-  <script src="lib/jquery/jquery.min.js"></script>
-  <script src="lib/jquery/jquery-migrate.min.js"></script>
-  <script src="lib/bootstrap/js/bootstrap.bundle.min.js"></script>
-  <script src="lib/easing/easing.min.js"></script>
-  <script src="lib/wow/wow.min.js"></script>
-  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD8HeI8o-c1NppZA-92oYlXakhDPYR7XMY"></script>
-
-  <script src="lib/waypoints/waypoints.min.js"></script>
-  <script src="lib/counterup/counterup.min.js"></script>
-  <script src="lib/superfish/hoverIntent.js"></script>
-  <script src="lib/superfish/superfish.min.js"></script>
-
-  <!-- Contact Form JavaScript File -->
-    
-  <!-- Template Main Javascript File -->
-  <script src="js/main.js"></script>
-
-</body>
-</html>
+/*
+ * --------------------------------------------------------------------
+ * LOAD THE BOOTSTRAP FILE
+ * --------------------------------------------------------------------
+ *
+ * And away we go...
+ */
+require_once BASEPATH.'core/CodeIgniter.php';
