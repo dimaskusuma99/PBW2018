@@ -20,15 +20,7 @@ class Welcome extends CI_Controller {
 	 */
 	public function index()
 	{
-		$this->load->view('index');
+		$this->load->view('crud/index');
 	}
-
-	public function dashboard()
-    {
-        $data['content'] = $this->db->get('kontak');
-        
-        $this->load->view('crud/dashboard', $data);
-    }
-
 
 }
